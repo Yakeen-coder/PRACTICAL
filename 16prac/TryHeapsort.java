@@ -19,36 +19,14 @@ public class TryHeapsort {
         System.out.println("\nSmall test array (first 20 words):");
         List<String> testWords = new ArrayList<>(words.subList(0, Math.min(20, words.size())));
         System.out.println(testWords);
+
+        List<String> sorted = heapSortBottomUp(testWords);
+        System.out.println("\nHeapsort result (ascending):");
+        System.out.println(sorted);
+        System.out.println("Sorted? " + isSorted(sorted));
     }
 
-// Load and clean words from the text file
-    
-    static List<String> loadWords(String filename) {
-        List<String> words = new ArrayList<>();
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Split into words (anything that's not a letter/number)
-                String[] parts = line.split("\\W+");
-                
-                for (String word : parts) {
-                    String clean = word.toLowerCase().trim();
-                    if (!clean.isEmpty()) {
-                        words.add(clean);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error: Cannot read file " + filename);
-            System.out.println(e.getMessage());
-        }
-        
-        return words;
-    }
-}
-    
-     //Heapsort using bottom-up 
+    // Heapsort using bottom-up heap construction (min-heap).
 
      static List<String> heapSortBottomUp(List<String> words) {
         // Convert to array
@@ -75,3 +53,62 @@ public class TryHeapsort {
         Collections.reverse(result);
         return result;
     }
+
+    static void bubbleDown(String[] heap, int i, int n) {
+        while (true) {
+            int left = 2 * i + 1;
+            int right = left + 1;
+            int smallest = i;
+
+            if (left < n && heap[left].compareTo(heap[smallest]) < 0) {
+                smallest = left;
+            }
+            if (right < n && heap[right].compareTo(heap[smallest]) < 0) {
+                smallest = right;
+            }
+            if (smallest == i) {
+                return;
+            }
+
+            String tmp = heap[i];
+            heap[i] = heap[smallest];
+            heap[smallest] = tmp;
+            i = smallest;
+        }
+    }
+
+     /**
+     * Check if array is sorted
+     */
+     static boolean isSorted(List<String> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i).compareTo(list.get(i + 1)) > 0) {
+                return false; // Out of order
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Load words from file
+     */
+    static List<String> loadWords(String filename) {
+        List<String> words = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\W+");
+                for (String word : parts) {
+                    String clean = word.toLowerCase().trim();
+                    if (!clean.isEmpty()) {
+                        words.add(clean);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return words;
+    }
+
+}
