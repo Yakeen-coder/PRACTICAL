@@ -9,7 +9,7 @@ public class TryHeapsort {
         List<String> words = loadWords("joyce1922_ulysses.text");
         System.out.println("Loaded " + words.size() + " words");
         
-        // Show first 10 words
+        // Show first 20 words
         System.out.println("\nFirst 20 words:");
         for (int i = 0; i < Math.min(20, words.size()); i++) {
             System.out.println((i+1) + ". " + words.get(i));
@@ -47,3 +47,31 @@ public class TryHeapsort {
         return words;
     }
 }
+    
+     //Heapsort using bottom-up 
+
+     static List<String> heapSortBottomUp(List<String> words) {
+        // Convert to array
+        String[] heap = words.toArray(new String[0]);
+        int n = heap.length;
+        
+        // Build heap from bottom-up
+        System.out.println("\nBuilding heap from bottom-up...");
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            bubbleDown(heap, i, n);
+        }
+        System.out.println("Heap built: " + Arrays.toString(heap));
+        
+        // Extract elements in sorted order
+        List<String> result = new ArrayList<>();
+        for (int i = n - 1; i > 0; i--) {
+            result.add(heap[0]);  // Save root (smallest)
+            heap[0] = heap[i];    // Move last to root
+            bubbleDown(heap, 0, i); // Fix heap
+        }
+        result.add(heap[0]); // Add last element
+        
+        // Reverse to get ascending order
+        Collections.reverse(result);
+        return result;
+    }
