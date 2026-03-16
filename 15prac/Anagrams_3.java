@@ -160,8 +160,7 @@ public class Anagrams_3 {
     }
 }
 
-// In order to run the code
-// NB: Please note this was written on a Mac hence no latex file.
+// In order to run the code:
 
 // 1) javac Anagrams_3.java
 // 2) java Anagrams joyce1992_ulyssses.text
