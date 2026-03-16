@@ -48,9 +48,6 @@ public class TryHeapsort {
             bubbleDown(heap, 0, i); // Fix heap
         }
         result.add(heap[0]); // Add last element
-        
-        // Reverse to get ascending order
-        Collections.reverse(result);
         return result;
     }
 
@@ -76,10 +73,7 @@ public class TryHeapsort {
             i = smallest;
         }
     }
-
-     /**
-     * Check if array is sorted
-     */
+    //Check if array is sorted
      static boolean isSorted(List<String> list) {
         for (int i = 0; i < list.size() - 1; i++) {
             if (list.get(i).compareTo(list.get(i + 1)) > 0) {
@@ -89,9 +83,8 @@ public class TryHeapsort {
         return true;
     }
     
-    /**
-     * Load words from file
-     */
+    //Load words from file
+
     static List<String> loadWords(String filename) {
         List<String> words = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
