@@ -2,6 +2,7 @@ import java.util.*;
 
 public class tryBST {
     
+    // This represents a single "block" or node in our tree
     static class tNode {
         int value;
         tNode left;
@@ -19,25 +20,27 @@ public class tryBST {
     public tryBST() {
         this.root = null;
     }
-    
+    // Adds a new number to the tree.
     public void insert(int value) {
         root = insertHelper(root, value);
     }
     
     private tNode insertHelper(tNode node, int value) {
+        // If we find an empty spot, put the new node here
         if (node == null) {
             return new tNode(value);
         }
-        
+        // If the value is smaller, go down the left side
         if (value < node.value) {
             node.left = insertHelper(node.left, value);
+        // If the value is larger, go down the right side
         } else if (value > node.value) {
             node.right = insertHelper(node.right, value);
         }
         
         return node;
     }
-
+    // Removes a specific number from the tree
     public void delete(int value) {
         root = deleteHelper(root, value);
     }
@@ -46,7 +49,7 @@ public class tryBST {
         if (node == null) {
             return null;
         }
-
+        // Search for the node to delete
         if (value < node.value) {
             node.left = deleteHelper(node.left, value);
         } else if (value > node.value) {
@@ -77,7 +80,7 @@ public class tryBST {
         }
         return node;
     }
-    
+    // Checks if the tree follows the rules
     public boolean isBST() {
         return isBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
@@ -88,6 +91,7 @@ public class tryBST {
         }
         
         if (node.value <= minValue || node.value >= maxValue) {
+            // If a node breaks the min/max rules, it's not a valid BST
             return false;
         }
         
@@ -95,6 +99,7 @@ public class tryBST {
                isBSTHelper(node.right, node.value, maxValue);
     }
     public void populateBalanced(int n) {
+        // Fills the tree with numbers in a way that keeps it perfectly balanced
         int maxValue = (1 << n) - 1;
         populateRangeHelper(1, maxValue);
     }
@@ -103,7 +108,7 @@ public class tryBST {
         if (low > high) {
             return;
         }
-
+        // Always insert the middle number first to keep it balanced
         int middle = low + (high - low) / 2;
         insert(middle);
         
@@ -112,6 +117,7 @@ public class tryBST {
     }
     
     public void deleteAllEvens() {
+        //Finds and deletes all even numbers in the tree
         List<Integer> evens = new ArrayList<>();
         collectEvens(root, evens);
         
@@ -119,7 +125,7 @@ public class tryBST {
             delete(value);
         }
     }
-    
+    // Helper to scan the tree and save all even numbers into a list
     private void collectEvens(tNode node, List<Integer> evens) {
         if (node == null) {
             return;
@@ -134,6 +140,7 @@ public class tryBST {
     }
     
     public int countNodes() {
+        //Counts how many total nodes are in the tree
         return countNodesHelper(root);
     }
     
