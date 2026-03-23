@@ -103,7 +103,7 @@ public class tryBST {
         if (low > high) {
             return;
         }
-        
+
         int middle = low + (high - low) / 2;
         insert(middle);
         
@@ -183,6 +183,26 @@ public class tryBST {
         System.out.println("  After deletion: " + tree.countNodes() + " nodes");
         System.out.println("  Still valid: " + tree.isBST());
     }
+
+    private static void gatherStatistics(int n, int reps) {
+        long[] popTimes = new long[reps];
+        long[] delTimes = new long[reps];
+        
+        for (int i = 0; i < reps; i++) {
+            tryBST tree = new tryBST();
+            
+            long start = System.currentTimeMillis();
+            tree.populateBalanced(n);
+            popTimes[i] = System.currentTimeMillis() - start;
+            
+            start = System.currentTimeMillis();
+            tree.deleteAllEvens();
+            delTimes[i] = System.currentTimeMillis() - start;
+            
+            if ((i + 1) % 10 == 0) {
+                System.out.println("  Iteration " + (i + 1) + "/" + reps);
+            }
+        }
     
 
 
