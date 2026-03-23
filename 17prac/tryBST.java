@@ -67,5 +67,40 @@ public class tryBST {
         }
         
         return node; 
+    }
+
+    private tNode findMin(tNode node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+    
+    public boolean isBST() {
+        return isBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    
+    private boolean isBSTHelper(tNode node, long minValue, long maxValue) {
+        if (node == null) {
+            return true;
+        }
+        
+        if (node.value <= minValue || node.value >= maxValue) {
+            return false;
+        }
+        
+        return isBSTHelper(node.left, minValue, node.value) &&
+               isBSTHelper(node.right, node.value, maxValue);
+    }
+    public void populateBalanced(int n) {
+        int maxValue = (1 << n) - 1;
+        populateRangeHelper(1, maxValue);
+    }
+    
+    private void populateRangeHelper(int low, int high) {
+        if (low > high) {
+            return;
+        }
+
 
     
