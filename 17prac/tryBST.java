@@ -52,6 +52,7 @@ public class tryBST {
         } else if (value > node.value) {
             node.right = deleteHelper(node.right, value);
         } else {
+            
             if (node.left == null && node.right == null) {
                 return null;
             }
@@ -64,6 +65,7 @@ public class tryBST {
             tNode successor = findMin(node.right);
             node.value = successor.value;
             node.right = deleteHelper(node.right, successor.value);
+
         }
         
         return node; 
@@ -101,8 +103,7 @@ public class tryBST {
         if (low > high) {
             return;
         }
-
-
+        
         int middle = low + (high - low) / 2;
         insert(middle);
         
@@ -156,8 +157,35 @@ public class tryBST {
         System.out.print(node.value + " ");
         inOrderHelper(node.right);
     }
-
+    public static void main(String[] args) {
+        System.out.println("CSC 211 - Binary Search Tree, Prac 7\n");
+        
+        System.out.println("Testing with small values...");
+        testBST(5);
+        testBST(6);
+        testBST(7);
+        
+        System.out.println("\nGathering timing statistics (n = 20, 30 iterations)");
+        gatherStatistics(20, 30);
+    }
     
+    private static void testBST(int n) {
+        System.out.println("\nn=" + n);
+        
+        tryBST tree = new tryBST();
+        int maxValue = (1 << n) - 1;
+        
+        tree.populateBalanced(n);
+        System.out.println("  Populated: " + tree.countNodes() + " nodes");
+        System.out.println("  Valid BST: " + tree.isBST());
+        
+        tree.deleteAllEvens();
+        System.out.println("  After deletion: " + tree.countNodes() + " nodes");
+        System.out.println("  Still valid: " + tree.isBST());
+    }
+    
+
+
 
 
     
