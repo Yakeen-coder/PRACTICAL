@@ -103,4 +103,61 @@ public class tryBST {
         }
 
 
+        int middle = low + (high - low) / 2;
+        insert(middle);
+        
+        populateRangeHelper(low, middle - 1);
+        populateRangeHelper(middle + 1, high);
+    }
+    
+    public void deleteAllEvens() {
+        List<Integer> evens = new ArrayList<>();
+        collectEvens(root, evens);
+        
+        for (int value : evens) {
+            delete(value);
+        }
+    }
+    
+    private void collectEvens(tNode node, List<Integer> evens) {
+        if (node == null) {
+            return;
+        }
+        
+        if (node.value % 2 == 0) {
+            evens.add(node.value);
+        }
+        
+        collectEvens(node.left, evens);
+        collectEvens(node.right, evens);
+    }
+    
+    public int countNodes() {
+        return countNodesHelper(root);
+    }
+    
+    private int countNodesHelper(tNode node) {
+        if (node == null) {
+            return 0;
+        }
+        return 1 + countNodesHelper(node.left) + countNodesHelper(node.right);
+    }
+    
+    public void inOrder() {
+        inOrderHelper(root);
+        System.out.println();
+    }
+    
+    private void inOrderHelper(tNode node) {
+        if (node == null) {
+            return;
+        }
+        inOrderHelper(node.left);
+        System.out.print(node.value + " ");
+        inOrderHelper(node.right);
+    }
+
+    
+
+
     
