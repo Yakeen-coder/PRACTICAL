@@ -173,7 +173,6 @@ public class tryBST {
         System.out.println("\nn=" + n);
         
         tryBST tree = new tryBST();
-        int maxValue = (1 << n) - 1;
         
         tree.populateBalanced(n);
         System.out.println("  Populated: " + tree.countNodes() + " nodes");
@@ -203,6 +202,49 @@ public class tryBST {
                 System.out.println("  Iteration " + (i + 1) + "/" + reps);
             }
         }
+
+        Stats popStats = calculateStats(popTimes);
+        Stats delStats = calculateStats(delTimes);
+        
+        System.out.println("\nTiming Results:");
+        System.out.println("Number of\tAverage time\tStandard");
+        System.out.println("Method\t\tkeys n\t\tin ms.\t\tDeviation");
+        System.out.println("-".repeat(55));
+        System.out.printf("Populate tree\t%d\t\t%.2f\t\t%.2f\n", 
+            (1 << n) - 1, popStats.average, popStats.stdDev);
+        System.out.printf("Remove evens\t%d\t\t%.2f\t\t%.2f\n", 
+            (1 << n) - 1, delStats.average, delStats.stdDev);
+    }
+
+            static class Stats {
+                double average;
+                double stdDev;
+                
+                Stats(double average, double stdDev) {
+                    this.average = average;
+                    this.stdDev = stdDev;
+                }
+            }
+
+            private static Stats calculateStats(long[] times) {
+                long sum = 0;
+                for (long time : times) {
+                    sum += time;
+                }
+                double average = (double) sum / times.length;
+                
+                double sumSqDiff = 0;
+                for (long time : times) {
+                    double diff = time - average;
+                    sumSqDiff += diff * diff;
+                }
+                double variance = sumSqDiff / times.length;
+                double stdDev = Math.sqrt(variance);
+                
+                return new Stats(average, stdDev);
+            }
+        }
+
     
 
 
