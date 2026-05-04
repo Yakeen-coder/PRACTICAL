@@ -1,16 +1,16 @@
+/**
+ * Student Name: Yakeen Lucas
+ * Module: CSC211 (2026)
+ * Assessment: Term 2 Practical 3A
+ * Student Number : 4482051
+ * 
+ * Sources include:
+ * Class notes on Ternary Heaps and Array representation.
+ */
 
- 
- //* Student Name: Yakeen Lucas
+public class Practical123A {
 
- //Assessment: Term 2 Practical 3A
- 
-
-public class Practical23A {
-
-    /**
-     * Prints the children for each node in a 1-based ternary heap.
-     * Requirement: Question 1
-     */
+    // Question 1: Prints the children for each node in a 1-based ternary heap.
     public static void print(int[] heap) {
         if (heap == null || heap.length <= 1) {
             return;
@@ -42,13 +42,8 @@ public class Practical23A {
         }
     }
 
-    /**
-     * Validates if the array is a valid min or max ternary heap.
-     * Returns 1 if valid, -1 otherwise.
-     * Requirement: Question 2
-     */
+// Question 2: Validates if the array is a valid min or max ternary heap.
     public static int validate(int[] heap) {
-        // Empty or single-element heaps are technically valid
         if (heap == null || heap.length <= 1) {
             return 1;
         }
@@ -81,29 +76,24 @@ public class Practical23A {
 
         return (isMinHeap || isMaxHeap) ? 1 : -1;
     }
-
-    /**
-     * Main method to instantiate test cases as per rubric requirements.
-     */
+//Test Cases
     public static void main(String[] args) {
         // Test Case 1: A valid Min Ternary Heap
         System.out.println("--- Test Case 1: Valid Min Heap ---");
         int[] minHeap = {0, 5, 10, 12, 15, 20, 25, 30, 35}; 
         print(minHeap);
-        System.out.println("Validation Result: " + validate(minHeap)); // Expected: 1
+        System.out.println("Validation Result: " + validate(minHeap)); // Expected ValidationResult is 1
 
         System.out.println("\n--- Test Case 2: Valid Max Heap ---");
         // Test Case 2: A valid Max Ternary Heap
         int[] maxHeap = {0, 100, 50, 40, 30, 20, 10};
         print(maxHeap);
-        System.out.println("Validation Result: " + validate(maxHeap)); // Expected: 1
+        System.out.println("Validation Result: " + validate(maxHeap)); // Expected Validation Result is 1
 
         System.out.println("\n--- Test Case 3: Invalid Heap ---");
         // Test Case 3: Random array (Invalid heap)
         int[] invalid = {0, 10, 50, 5, 100};
         print(invalid);
-        System.out.println("Validation Result: " + validate(invalid)); // Expected: -1
+        System.out.println("Validation Result: " + validate(invalid)); // Expected ValidationResult is -1
     }
-}
-    
 }
